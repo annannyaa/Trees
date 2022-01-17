@@ -15,7 +15,6 @@ int data;
   cin>>numChild;
    for(int i=0;i<numChild;i++){
       int childData;
-     TreeNode *child= takeInputLevelWise()}
      cout<<"Enter the data of the "<<i<<" th child of"<<front->data<<endl;
      cin>>childData;
      TreeNode <int>*child= new TreeNode<int>(childData);
