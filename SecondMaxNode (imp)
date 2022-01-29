@@ -1,0 +1,10 @@
+Given a generic tree, find and return the node with second largest value in given tree.
+Note: Return NULL if no node with required value is present.
+
+approch 1: find the max element and replace it with -inf and then find the max element again.
+prob: 1. if all the elements are the same, then the traversals=no.of nodes and time complexity messed up.
+      2. don't change the input data
+approch 2: custom copy approach
+approach 3: keep a custom: max and smax. check if ele. likes b/w max and smax. if below smax: don;t worry. if b/w: update smax. if above: smax=max and ele= new max.
+*************************************************************************************************
+
