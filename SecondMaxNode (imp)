@@ -7,4 +7,90 @@ prob: 1. if all the elements are the same, then the traversals=no.of nodes and t
 approch 2: custom copy approach
 approach 3: keep a custom: max and smax. check if ele. likes b/w max and smax. if below smax: don;t worry. if b/w: update smax. if above: smax=max and ele= new max.
 *************************************************************************************************
+class helper{
+    public:
+    TreeNode<int>* max;
+    TreeNode<int>* secmax;
+        
+    helper(TreeNode<int>* max, TreeNode<int>* secmax){
+        this->max=max;
+        this->secmax=secmax;
+    }
+};
+helper secondLargest(TreeNode<int>* root){
+    if(root==NULL){
+        helper r(NULL,NULL);
+        return r;
+    }
+helper ans(root,NULL);
+    for(int i=0;i<root->children.size();i++){
+        helper child=secondLargest(root->children[i]);
+        if(child.max->data>ans.max->data){
+            if(child.secmax==NULL){
+                ans.secmax=ans.max;
+                ans.max=child.max; 
+            }
+            else{
+                if(child.secmax->data>ans.max->data){
+                ans.secmax=child.secmax;
+                ans.max=child.max;
+                }
+                else{
+                	ans.secmax=ans.max;
+                    ans.max=child.max;
+                }
+            }
+        }
+        else{
+            if(child.max->data!=ans.max->data && (ans.secmax==NULL || child.max->data> ans.secmax->data)){
+                ans.secmax=child.max;
+            }
+            
+        }
+        
+    }
+    return ans;
+}
+TreeNode<int>* getSecondLargestNode(TreeNode<int>* root) {
+    // Write your code here
+  if(root==NULL){
+      return NULL;
+  }
+    helper ans=secondLargest(root);
+    return ans.secmax;
+       
+}
+#####################################################################################################
+void helper(TreeNode<int> *root,TreeNode<int> **first,TreeNode<int> **second){
+    if(root==NULL)
+    {
+        return;
+    
+    }
+    if(!(*first)){
+        *first=root;
+    }
+    else if(root->data>(*first)->data){
+        *second=*first;
+        *first=root;
+    }
+    else if(!(*second)|| root->data>(*second)->data)
+        *second=root;
+    
+    for(int i=0;i<root->children.size();i++)
+        helper(root->children[i],first,second);
+     
+}
+TreeNode <int>* secondLargest(TreeNode<int> *root) {
+    TreeNode<int> *second=NULL;
+    TreeNode<int> *first=NULL;
+    helper(root,&first,&second);
+        
+        if(second==NULL)
+            return NULL;
+    if(first->data==second->data)
+        return NULL;
+    return second;
+    // Write your code here
 
+}
